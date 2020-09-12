@@ -1,6 +1,4 @@
-// let url = process.env.NEXT_PUBLIC_END_POINT;
-
-let url = "http://localhost:3000";
+let url = process.env.NEXT_PUBLIC_END_POINT;
 
 const digimonList = [
   {
