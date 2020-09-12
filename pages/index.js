@@ -1,65 +1,115 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [digimonData, setDigimonData] = useState({});
+  const [digimonList, setDigimonList] = useState([]);
+  const [error, setError] = useState("");
+
+  // const url = "https://digimon-api.vercel.app/api/digimon";
+  const url = "http://localhost:3000/api/digimondata";
+  const getDigimon = async () => {
+    fetch(url)
+      .then(function (response) {
+        if (response.status !== 200) {
+          setError(
+            "Looks like there was a problem. Status Code: " + response.status
+          );
+          return;
+        }
+        // Examine the text in the response
+        response.json().then(function (data) {
+          // console.log("response success", data[0]);
+          setDigimonData(data[0]);
+          // console.log("digimon data : ", digimonData);
+          setDigimonList(data);
+          // console.log("digimon list : ", digimonList);
+          // setDigimonData(data);
+          // setDigimonList(data.results);
+        });
+      })
+      .catch(function (err) {
+        setError("Fetch Error :-S", err);
+      });
+  };
+
+  useEffect(() => {
+    getDigimon();
+  }, []);
+
+  const TestFunction = (a) => {
+    console.log("test", a);
+  };
+  // Arrow Function
+
+  // function TestFunction() {
+  //   console.log("test");
+  // }
+  // Normal Function
+
+  const Komponen = () => {
+    return <p>Test</p>;
+  };
+
   return (
     <div className={styles.container}>
+      {/* {console.log("digimon data : ", digimonData)}
+      {console.log("digimon list : ", digimonList)} */}
       <Head>
-        <title>Create Next App</title>
+        <title>Digimon Master</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta charset="UTF-8" />
+        <meta name="description" content="Digimon List" />
+        <meta
+          name="keywords"
+          content="Digimon, next js, responsive design, api"
+        />
+        <meta name="author" content="Idham" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>Digimon Master</h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <div>
+          {/* {error != "" ? (
+            <p>{error}</p>
+          ) : (
+            <div className={styles.digimonCard}>
+              <p>{digimonData.name}</p>
+              <img src={digimonData.img} />
+              <p>{digimonData.level}</p>
+            </div>
+          )} */}
+          {/* Untuk Print satu data */}
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          {digimonList.length === 0 ? (
+            <p>{error}</p>
+          ) : (
+            digimonList.map((obj, index) => {
+              // console.log(index);
+              return (
+                <div key={index} className={styles.digimonCard}>
+                  <p>{obj.name}</p>
+                  <img className={styles.digimonImg} src={obj.img} />
+                  <p>{obj.level}</p>
+                </div>
+              );
+            })
+          )}
         </div>
+        {/* <button onClick={() => getDigimon()}>Test</button> */}
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://www.linkedin.com/in/idham-muhammad-8b92b2150/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          Copyright Idham ©2020
         </a>
       </footer>
     </div>
-  )
+  );
 }
