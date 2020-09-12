@@ -123,6 +123,25 @@
   margin: 5px;
   border-radius: 10px;
 }
+.digimonWrapper {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 0px;
+}
+
+@media (min-width: 768px) {
+  .digimonWrapper {
+    width: 668px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .digimonWrapper {
+    width: 1024px;
+  }
+}
 
 @media (max-width: 600px) {
   .grid {

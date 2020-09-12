@@ -83,20 +83,22 @@ export default function Home() {
           )} */}
           {/* Untuk Print satu data */}
 
-          {digimonList.length === 0 ? (
-            <p>{error}</p>
-          ) : (
-            digimonList.map((obj, index) => {
-              // console.log(index);
-              return (
-                <div key={index} className={styles.digimonCard}>
-                  <p>{obj.name}</p>
-                  <img className={styles.digimonImg} src={obj.img} />
-                  <p>{obj.level}</p>
-                </div>
-              );
-            })
-          )}
+          <div className={styles.digimonWrapper}>
+            {digimonList.length === 0 ? (
+              <p>{error}</p>
+            ) : (
+              digimonList.map((obj, index) => {
+                // console.log(index);
+                return (
+                  <div key={index} className={styles.digimonCard}>
+                    <p>{obj.name}</p>
+                    <img className={styles.digimonImg} src={obj.img} />
+                    <p>{obj.level}</p>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
         {/* <button onClick={() => getDigimon()}>Test</button> */}
       </main>
