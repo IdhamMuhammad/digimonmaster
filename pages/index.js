@@ -8,7 +8,7 @@ export default function Home() {
   const [error, setError] = useState("");
 
   // const url = "https://digimon-api.vercel.app/api/digimon";
-  const url = "http://localhost:3000/api/digimondata";
+  const url = process.env.NEXT_PUBLIC_END_POINT + "/api/digimondata";
   const getDigimon = async () => {
     fetch(url)
       .then(function (response) {
